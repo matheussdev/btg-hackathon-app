@@ -1,5 +1,26 @@
-import { View, Text } from "react-native";
+import React from "react";
+import {
+    KeyboardAvoidingView,
+    View,
+    Text,
+    TextInput
+} from 'react-native';
 import { styles } from "./styles";
+export const Chat: React.FC = () => {
 
-export const Chat: React.FC = () => <View style={styles.container}><Text>Chat</Text></View>
+    return (
+        <KeyboardAvoidingView style={styles.container} behavior="height" enabled keyboardVerticalOffset={80}>
+            <View style={styles.inner}>
+                <View style={styles.messagesContainer}>
+                    <Text>Chat</Text>
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input}
+                    />
+                </View>
+            </View>
+        </KeyboardAvoidingView>
+    )
+}
 
