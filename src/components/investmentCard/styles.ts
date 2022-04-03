@@ -16,7 +16,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+
   },
   cardTitle:{
     fontWeight: '600',
@@ -34,5 +35,21 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: theme.light.colors.primary,
   },
+
+
+  collapseContainer:{
+    marginTop: 2,
+    marginBottom: 0,
+  },
+  extraInfo:{
+    flexDirection: 'row',
+    alignItems: "center",
+    marginTop: 8,
+  },
+  extraInfoText:{
+    marginLeft: 10,
+  }
   
 });
+
+
