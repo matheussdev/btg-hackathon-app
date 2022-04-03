@@ -4,7 +4,6 @@ import {
     Text,
     TextInput,
     ScrollView,
-    Button,
     Alert,
     TouchableHighlight
 } from 'react-native';
@@ -15,6 +14,7 @@ import Feather from '@expo/vector-icons/Feather';
 import FontAwsome from '@expo/vector-icons/MaterialIcons';
 import theme from "../../theme";
 import { InvestmentCard } from "../../components/investmentCard";
+import { Button } from "../../components/button";
 
 const wallet = [
     {
@@ -46,7 +46,7 @@ export const InvestmentTips: React.FC = () => {
             </View>
             <View style={styles.InvestmentList}>
                 {
-                    wallet.map(() => <InvestmentCard item={{ name: "Fundos de investimentos", value: 69180.10, percent: 30, color: "#001E62" }} />)
+                    wallet.map((i, key) => <InvestmentCard key={key} item={{ name: "Fundos de investimentos", value: 69180.10, percent: 30, color: "#001E62" }} />)
                 }
                 <InvestmentCard item={{ name: "Renda Fixa", value: 69180.10, percent: 20, color: "#195AB4" }} />
                 <InvestmentCard item={{ name: "Renda variável", value: 69180.10, percent: 15, color: "#195AB4" }} />
@@ -55,15 +55,11 @@ export const InvestmentTips: React.FC = () => {
                 <InvestmentCard item={{ name: "Derivativos", value: 69180.10, percent: 15, color: "#B8CCEA" }} />
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableHighlight style={styles.button} onPress={() => Alert.alert("Redirecionando para btg investimentos...")}>
-                    <>
-                        <FontAwsome name="attach-money" size={20} color="white" />
-                        <Text style={styles.buttonText}>
-                            Iniciar investimentos
-                        </Text>
-                    </>
-                </TouchableHighlight>
-
+                <Button 
+                    label="Iniciar investimentos" 
+                    iconLeft={<FontAwsome name="attach-money" size={20} color="white" />} 
+                    onPress={() => Alert.alert("Redirecionando para btg investimentos...")}
+                />
             </View>
         </ScrollView>
     )
