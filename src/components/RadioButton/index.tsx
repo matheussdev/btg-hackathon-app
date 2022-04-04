@@ -32,6 +32,7 @@ export const RadioButton: React.FC<ButtonProps> = ({
     <FlatList
       data={data}
       keyExtractor={(item) => item.organizationId}
+      style={styles.list}
       renderItem={({ item }) => (
         <Pressable
           key={item.organizationName}
@@ -52,6 +53,9 @@ import { StyleSheet } from "react-native";
 import theme from "../../theme";
 
 export const styles = StyleSheet.create({
+  list:{
+    height: 350,
+  },
   itemSeIcon: {
     color: theme.light.colors.primary,
     opacity: 1,

@@ -1,13 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     Text,
-    TextInput,
     ScrollView,
     Alert,
-    TouchableHighlight
 } from 'react-native';
-import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
 
 import Feather from '@expo/vector-icons/Feather';
@@ -16,48 +13,76 @@ import theme from "../../theme";
 import { InvestmentCard } from "../../components/investmentCard";
 import { Button } from "../../components/button";
 
-const wallet = [
-    {
-        'fund': 'BTG PACTUAL EXPLORER FI MULTIMERCADO',
-        'position': 0.20,
-        'liquidity': 12,
-        'risk': 'Moderado',
-        'annualReturn': 0.0867
-    },
-    {
-        'fund': 'BTG PACTUAL EXPLORER FI MULTIMERCADO',
-        'position': 0.20,
-        'liquidity': 12,
-        'risk': 'Moderado',
-        'annualReturn': 0.0867
-    }
-]
-export const InvestmentTips: React.FC = () => {
+// const wallet = [
+//     {
+//         'fund': 'ARX MACRO FIC FIM', 
+//         'position': 22.970585407783545,
+//         'liquidity': 1,
+//         'risk': 'Moderado',
+//         'annualReturn': 12.45
+//     },
+//     {
+//         'fund': 'COMPASS ESG CREDIT SELECTION FIC FIRF CP LP',
+//         'position': 22.970585407783545,
+//         'liquidity': 1,
+//         'risk': 'Moderado',
+//         'annualReturn': 7.62
+//     },
+//     {
+//         'fund': 'TESOURO IPCA CURTO RF', 
+//         'position': 18.0196097281443,
+//         'liquidity': 1,
+//         'risk': 'Baixo',
+//         'annualReturn': 0.0867
+//     },
+//     {
+//         'fund': 'BTG PACTUAL YIELD FIRF REFERENCIADO DI CP',
+//         'position': 18.0196097281443,
+//         'liquidity': 0,
+//         'risk': 'Baixo',
+//         'annualReturn': 6.99
+//     },
+//     {
+//         'fund': 'BTG PACTUAL OURO FIM', 
+//         'position': 18.0196097281443,
+//         'liquidity': 8,
+//         'risk': 'Moderado',
+//         'annualReturn': 19.15
+//     },
+// ]
 
+const colorList = [
+    "#001E62",
+    "#195AB4",
+    "#418FDE",
+    "#5C88DA",
+    "#B8CCEA",
+
+]
+export const InvestmentTips: React.FC = ({route}) => {
+    const [wallet, setWallet] = useState(route.params.data)
+    useEffect(()=>{
+        console.log(route.params.data)
+    }, [])
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
 
                 <View style={styles.iconContainer}>
-                    <Feather name="check-circle" size={60} color="#00C389" />
+                    <Feather name="check-circle" size={60} color={theme.light.colors.primary} />
                 </View>
                 <Text style={styles.headerTitle}>Análise concluída!</Text>
-                <Text style={styles.headerDescription}>Ao analisar seus dados através do open finance separamos alguns investimentos que podem ser interessantes para o seu perfil.</Text>
+                <Text style={styles.headerDescription}>Ao analisar seus dados através do open finance separamos um portfólio de investimentos que pode ser interessante para o seu perfil.</Text>
             </View>
             <View style={styles.InvestmentList}>
                 {
-                    wallet.map((i, key) => <InvestmentCard key={key} item={{ name: "Fundos de investimentos", value: 69180.10, percent: 30, color: "#001E62" }} />)
+                    wallet.map((i, key) => <InvestmentCard key={key} item={{ ...i, color: colorList[(colorList.length + key) % colorList.length] }} />)
                 }
-                <InvestmentCard item={{ name: "Renda Fixa", value: 69180.10, percent: 20, color: "#195AB4" }} />
-                <InvestmentCard item={{ name: "Renda variável", value: 69180.10, percent: 15, color: "#195AB4" }} />
-                <InvestmentCard item={{ name: "COE", value: 69180.10, percent: 10, color: "#418FDE" }} />
-                <InvestmentCard item={{ name: "Previdência", value: 69180.10, percent: 10, color: "#5C88DA" }} />
-                <InvestmentCard item={{ name: "Derivativos", value: 69180.10, percent: 15, color: "#B8CCEA" }} />
             </View>
             <View style={styles.buttonContainer}>
-                <Button 
-                    label="Iniciar investimentos" 
-                    iconLeft={<FontAwsome name="attach-money" size={20} color="white" />} 
+                <Button
+                    label="Iniciar investimentos"
+                    iconLeft={<FontAwsome name="attach-money" size={20} color="white" />}
                     onPress={() => Alert.alert("Redirecionando para btg investimentos...")}
                 />
             </View>

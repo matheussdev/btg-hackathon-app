@@ -8,6 +8,9 @@ export const styles = StyleSheet.create({
     borderTopColor: theme.light.colors.background,
     marginTop: 10,
   },
+  ct:{
+    width: '70%',
+  },
   InvestmentCard:{
     borderLeftWidth: 8,
     borderBottomWidth: 1,
@@ -23,6 +26,9 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 15,
     color: '#041A36',
+    flexWrap: "wrap",
+    width: '100%',
+
   },
   cardPrice:{
     fontWeight: '500',

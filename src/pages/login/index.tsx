@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -15,11 +15,8 @@ import { TextInputMask } from "react-native-masked-text";
 import { Button } from "../../components/button";
 import theme from "../../theme";
 
-import RadioButtonRN from 'radio-buttons-react-native';
-
-import { Picker } from '@react-native-picker/picker';
-import { ScrollView } from "react-native-gesture-handler";
 import { RadioButton } from "../../components/RadioButton";
+import api from "../../services/api";
 
 
 const organizations = [
@@ -67,15 +64,25 @@ const organizations = [
 
 export const Login: React.FC = ({ navigation }) => {
     const [cpf, setCpf] = useState("")
-    const [bank, setBank] = useState(organizations[0].organizationId)
+    const [bank, setBank] = useState()
     const [isLoading, setIsLoading] = useState(false)
-    function handleLoading() {
+    async function handleLoading() {
         setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false)
-            navigation.navigate('InvestmentTips', { bank, cpf })
-        }
-            , 1000)
+        await api.get(`/calculateCustomerPortfolio/${cpf}/${bank}`)
+            .then((response) => {
+                    navigation.navigate('InvestmentTips', { bank, cpf, data:response.data.portfolio })
+            }).catch((error) => {
+                // Your error is here!
+                Alert.alert("Você não possui conta na instituição financeira selecionada.\n Verifique se seus dados estão preenchidos corretamente.")
+                console.log(error)
+            }).finally(()=>{
+                setIsLoading(false)
+            });
+
+        // setTimeout(() => {
+        //     navigation.navigate('InvestmentTips', { bank, cpf })
+        // }
+        //     , 5000)
 
     }
     return (
@@ -105,10 +112,7 @@ export const Login: React.FC = ({ navigation }) => {
                             <Text style={styles.textInstructions}>Agora precisamos que você{"\n"} escolha sua instituição finaceira</Text>
                         </View>
                         <View style={styles.card}>
-
-                            <ScrollView style={styles.optionsContainer}>
-                                <RadioButton onChange={(e) => setBank(e.organizationId)} data={organizations} />
-                            </ScrollView>
+                            <RadioButton onChange={(e) => setBank(e.organizationId)} data={organizations} />
                             <Modal
                                 animationType="fade"
                                 transparent={true}
@@ -119,16 +123,17 @@ export const Login: React.FC = ({ navigation }) => {
                                 }}>
                                 <View style={styles.centeredView}>
                                     <View style={styles.modalView}>
-                                        <ActivityIndicator size={30} />
+                                        <ActivityIndicator size="large" color="#0006" />
                                     </View>
                                 </View>
                             </Modal>
 
                         </View>
-                        <View style={styles.containerButton}>
-                            <Button label="Continuar" onPress={handleLoading} />
-
-                        </View>
+                        {
+                            bank && <View style={styles.containerButton}>
+                                <Button label="Continuar" onPress={handleLoading} />
+                            </View>
+                        }
                     </Collapsible>
                 </View>
             </>
@@ -158,9 +163,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 4,
-    },
-    optionsContainer: {
-        maxHeight: 350,
     },
     container: {
         flex: 1,

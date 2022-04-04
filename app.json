@@ -1,6 +1,12 @@
 {
   "expo": {
-    "name": "app",
+    "icon": "./src/assets/icon.png",
+    "name": "BTG Delphos",
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "backgroundColor": "#fff",
+      "resizeMode": "cover"
+    },
     "slug": "app",
     "version": "1.0.0",
     "assetBundlePatterns": [
