@@ -1,5 +1,12 @@
 # BTG Delphos
 
+### Em produção🌎
+
+- [Clique aqui para baixar o apk](https://expo.dev/artifacts/05af6a23-c328-45b6-b192-b2618492b220)
+
+
+- [Abrir site versão web](http://btg-delphos.s3-website-sa-east-1.amazonaws.com/)
+
 Tabela de conteúdos
 =================
 <!--ts-->
@@ -49,9 +56,4 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [React Native](https://reactnative.dev/)
 - [TypeScript](https://www.typescriptlang.org)
 
-### Em produção🌎
 
-<!-- - [Clique aqui para baixar o apk](https://expo.io/) -->
-
-
-- [Abrir site versão web](http://btg-delphos.s3-website-sa-east-1.amazonaws.com/)
