@@ -9,12 +9,14 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 import { styles } from "./styles";
 
 interface ivestmentType {
-    fund: string,
-    position: number,
-    liquidity: number,
-    risk: string,
-    annualReturn: number
-    color:string;
+    amount: number;
+    distance: number;
+    fund: string;
+    liquidityDays: number;
+    position: number;
+    return: number,
+    riskProfile: string
+    color: string;
 }
 
 interface InvestmentCardProps {
@@ -35,22 +37,23 @@ export const InvestmentCard: React.FC<InvestmentCardProps> = ({ item }) => {
             <>
                 <View style={styles.ct}>
                     <Text numberOfLines={2} style={styles.cardTitle}>{item.fund}</Text>
-                    <Text style={styles.cardPrice}>R$ 2000,00</Text>
+                    <Text style={styles.cardPrice}>{new Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL' }).format(item.amount < 0 ? item.amount * -1 : item.amount)}
+                    </Text>
                     <Collapsible collapsed={isHiden} >
                         <View style={styles.collapseContainer}>
                             <View style={styles.extraInfo}>
                                 <Text style={styles.extraInfoText}>
-                                    Rendimento: {item.annualReturn}%
+                                    Rendimento: {item.return}%
                                 </Text>
                             </View>
                             <View style={styles.extraInfo}>
                                 <Text style={styles.extraInfoText}>
-                                    Risco: {item.risk}
+                                    Risco: {item.riskProfile}
                                 </Text>
                             </View>
                             <View style={styles.extraInfo}>
                                 <Text style={styles.extraInfoText}>
-                                    Liquidez: {item.liquidity} dias
+                                    Liquidez: {item.liquidityDays} dias
                                 </Text>
                             </View>
                         </View>

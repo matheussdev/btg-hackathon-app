@@ -68,7 +68,7 @@ export const Login: React.FC = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false)
     async function handleLoading() {
         setIsLoading(true);
-        await api.get(`/calculateCustomerPortfolio/${cpf}/${bank}`)
+        await api.get(`/api/calculateCustomerPortfolio/${cpf}/${bank}`)
             .then((response) => {
                     navigation.navigate('InvestmentTips', { bank, cpf, data:response.data.portfolio })
             }).catch((error) => {
